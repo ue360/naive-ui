@@ -29,6 +29,7 @@ import style from './styles/index.cssr'
 const modalProps = {
   ...(useTheme.props as ThemeProps<ModalTheme>),
   show: Boolean,
+  draggable: Boolean,
   unstableShowMask: {
     type: Boolean,
     default: true
@@ -269,6 +270,7 @@ export default defineComponent({
                   ref={'bodyWrapper'}
                   displayDirective={this.displayDirective}
                   show={this.show}
+                  draggable={this.draggable}
                   preset={this.preset}
                   {...this.presetProps}
                   onClose={this.handleCloseClick}

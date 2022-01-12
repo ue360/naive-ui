@@ -17,8 +17,8 @@ coverage
 /fonts
 /site
 /package
-lib
-es
+themes/tusimple/lib
+themes/tusimple/es
 *.tsbuildinfo
 pnpm-lock.yaml
 web-types.json

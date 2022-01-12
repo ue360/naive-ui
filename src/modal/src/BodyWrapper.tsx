@@ -14,7 +14,9 @@ import {
   VNode,
   ComponentPublicInstance,
   mergeProps,
-  cloneVNode
+  cloneVNode,
+  resolveDirective,
+  Directive
 } from 'vue'
 import { clickoutside } from 'vdirs'
 import { dialogPropKeys } from '../../dialog/src/Dialog'
@@ -31,11 +33,72 @@ import { modalBodyInjectionKey, modalInjectionKey } from './interface'
 export default defineComponent({
   name: 'ModalBody',
   inheritAttrs: false,
+  directives: {
+    vdrag: {
+      mounted (el: HTMLDivElement, binding) {
+        const { value = false } = binding
+        if (!value) return
+        const header = el.querySelector('.n-card-header') as HTMLDivElement
+        if (header) {
+          const dialog = el.querySelector('.n-modal') as HTMLDivElement
+          // header.style.cursor = 'move'
+
+          // 获取原有属性 ie dom元素.currentStyle 火狐谷歌 window.getComputedStyle(dom元素, null);
+          const style =
+            (dialog as any).currentStyle ||
+            window.getComputedStyle(dialog, null)
+
+          header.onmousedown = (e: MouseEvent) => {
+            document.body.style.userSelect = 'none'
+            // 鼠标按下，计算当前元素距离可视区的距离
+            const _x = e.clientX - header.offsetLeft
+            const _y = e.clientY - header.offsetTop
+
+            // 获取到的值带px 正则匹配替换
+            let left: number, top: number
+
+            // 注意在ie中 第一次获取到的值为组件自带50% 移动之后赋值为px
+            if (style.left.includes('%')) {
+              left =
+                +document.body.clientWidth *
+                (+style.left.replace(/%/g, '') / 100)
+              top =
+                +document.body.clientHeight *
+                (+style.top.replace(/%/g, '') / 100)
+            } else {
+              left = +style.left.replace(/px/g, '')
+              top = +style.top.replace(/px/g, '')
+            }
+
+            document.onmousemove = (e: MouseEvent) => {
+              // 通过事件委托，计算移动的距离
+              const _left = e.clientX - _x
+              const _top = e.clientY - _y
+
+              // 移动当前元素
+              dialog.style.left = `${_left + left}px`
+              dialog.style.top = `${_top + top}px`
+
+              // 将此时的位置传出去
+              // binding.value({x:e.pageX,y:e.pageY})
+            }
+
+            document.onmouseup = () => {
+              document.body.style.userSelect = ''
+              document.onmousemove = null
+              document.onmouseup = null
+            }
+          }
+        }
+      }
+    }
+  },
   props: {
     show: {
       type: Boolean,
       required: true
     },
+    draggable: Boolean,
     preset: String as PropType<'confirm' | 'dialog' | 'card'>,
     displayDirective: {
       type: String as PropType<'if' | 'show'>,
@@ -190,6 +253,7 @@ export default defineComponent({
         childNode.props || {}
       )
     }
+    const VDrag = resolveDirective('vdrag') as Directive<any, any>
     return this.displayDirective === 'show' || this.displayed || this.show
       ? withDirectives(
           <div class={`${mergedClsPrefix}-modal-body-wrapper`}>
@@ -218,6 +282,9 @@ export default defineComponent({
                               {...this.$attrs}
                               class={[
                                 `${mergedClsPrefix}-modal`,
+                                this.draggable
+                                  ? `${mergedClsPrefix}-modal-draggable`
+                                  : '',
                                 this.$attrs.class
                               ]}
                               ref="bodyRef"
@@ -235,6 +302,9 @@ export default defineComponent({
                               ref="bodyRef"
                               class={[
                                 `${mergedClsPrefix}-modal`,
+                                this.draggable
+                                  ? `${mergedClsPrefix}-modal-draggable`
+                                  : '',
                                 this.$attrs.class
                               ]}
                               theme={this.mergedTheme.peers.Card}
@@ -263,7 +333,8 @@ export default defineComponent({
             [
               vShow,
               this.displayDirective === 'if' || this.displayed || this.show
-            ]
+            ],
+            [VDrag, this.draggable]
           ]
       )
       : null

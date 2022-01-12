@@ -4,7 +4,7 @@
 
 ```html
 <n-button @click="showModal = true"> 来吧 </n-button>
-<n-modal v-model:show="showModal">
+<n-modal v-model:show="showModal" draggable>
   <n-card style="width: 600px;" title="模态框" :bordered="false" size="huge">
     <template #header-extra> 噢！ </template>
     内容
