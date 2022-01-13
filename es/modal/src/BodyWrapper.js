@@ -33,7 +33,11 @@ export default defineComponent({
       mounted(el, binding) {
         const { value = false } = binding
         if (!value) return
-        const header = el.querySelector('.n-card-header')
+        const header =
+          typeof value === 'string'
+            ? el.querySelector(value)
+            : el.querySelector('.n-card-header') ||
+              el.querySelector('.n-dialog__title')
         if (header) {
           const dialog = el.querySelector('.n-modal')
           // header.style.cursor = 'move'
@@ -86,7 +90,7 @@ export default defineComponent({
           type: Boolean,
           required: true
         },
-        draggable: Boolean,
+        draggable: [Boolean, String],
         preset: String,
         displayDirective: {
           type: String,

@@ -4,12 +4,6 @@ declare const _default: import('vue').DefineComponent<
       readonly type: import('vue').PropType<string[]>
       readonly default: () => string[]
     }
-    /**
-     * Date Panel
-     * Update picker value on:
-     * 1. item click
-     * 2. clear click
-     */
     readonly active: BooleanConstructor
     readonly dateFormat: {
       readonly type: StringConstructor
@@ -496,12 +490,6 @@ declare const _default: import('vue').DefineComponent<
             iconMarginMedium: string
             iconMarginLarge: string
             iconSizeTiny: string
-            /**
-             * Date Panel
-             * Update picker value on:
-             * 1. item click
-             * 2. clear click
-             */
             iconSizeSmall: string
             iconSizeMedium: string
             iconSizeLarge: string
@@ -738,12 +726,6 @@ declare const _default: import('vue').DefineComponent<
                 iconMarginMedium: string
                 iconMarginLarge: string
                 iconSizeTiny: string
-                /**
-                 * Date Panel
-                 * Update picker value on:
-                 * 1. item click
-                 * 2. clear click
-                 */
                 iconSizeSmall: string
                 iconSizeMedium: string
                 iconSizeLarge: string
@@ -1064,12 +1046,6 @@ declare const _default: import('vue').DefineComponent<
                               iconMarginMedium: string
                               iconMarginLarge: string
                               iconSizeTiny: string
-                              /**
-                               * Date Panel
-                               * Update picker value on:
-                               * 1. item click
-                               * 2. clear click
-                               */
                               iconSizeSmall: string
                               iconSizeMedium: string
                               iconSizeLarge: string

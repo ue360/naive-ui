@@ -495,12 +495,6 @@ declare const _default: import('vue').DefineComponent<
             iconSizeTiny: string
             iconSizeSmall: string
             iconSizeMedium: string
-            /**
-             * DateTime Panel
-             * Update picker value on:
-             * 1. confirm click
-             * 2. clear click
-             */
             iconSizeLarge: string
             rippleDuration: string
           },
@@ -737,12 +731,6 @@ declare const _default: import('vue').DefineComponent<
                 iconSizeTiny: string
                 iconSizeSmall: string
                 iconSizeMedium: string
-                /**
-                 * DateTime Panel
-                 * Update picker value on:
-                 * 1. confirm click
-                 * 2. clear click
-                 */
                 iconSizeLarge: string
                 rippleDuration: string
               },
@@ -1063,12 +1051,6 @@ declare const _default: import('vue').DefineComponent<
                               iconSizeTiny: string
                               iconSizeSmall: string
                               iconSizeMedium: string
-                              /**
-                               * DateTime Panel
-                               * Update picker value on:
-                               * 1. confirm click
-                               * 2. clear click
-                               */
                               iconSizeLarge: string
                               rippleDuration: string
                             },

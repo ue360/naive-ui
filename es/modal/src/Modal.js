@@ -24,7 +24,7 @@ const modalProps = Object.assign(
   Object.assign(
     Object.assign(Object.assign({}, useTheme.props), {
       show: Boolean,
-      draggable: Boolean,
+      draggable: [Boolean, String],
       unstableShowMask: {
         type: Boolean,
         default: true

@@ -157,12 +157,6 @@ declare const _default: import('vue').DefineComponent<
         fontWeight: string
         fontWeightStrong: string
         cubicBezierEaseInOut: string
-        /**
-         * Month Panel
-         * Update picker value on:
-         * 1. item click
-         * 2. clear click
-         */
         cubicBezierEaseOut: string
         cubicBezierEaseIn: string
         borderRadius: string
@@ -501,6 +495,12 @@ declare const _default: import('vue').DefineComponent<
             iconMarginSmall: string
             iconMarginMedium: string
             iconMarginLarge: string
+            /**
+             * Month Panel
+             * Update picker value on:
+             * 1. item click
+             * 2. clear click
+             */
             iconSizeTiny: string
             iconSizeSmall: string
             iconSizeMedium: string
@@ -737,6 +737,12 @@ declare const _default: import('vue').DefineComponent<
                 iconMarginSmall: string
                 iconMarginMedium: string
                 iconMarginLarge: string
+                /**
+                 * Month Panel
+                 * Update picker value on:
+                 * 1. item click
+                 * 2. clear click
+                 */
                 iconSizeTiny: string
                 iconSizeSmall: string
                 iconSizeMedium: string
@@ -1057,6 +1063,12 @@ declare const _default: import('vue').DefineComponent<
                               iconMarginSmall: string
                               iconMarginMedium: string
                               iconMarginLarge: string
+                              /**
+                               * Month Panel
+                               * Update picker value on:
+                               * 1. item click
+                               * 2. clear click
+                               */
                               iconSizeTiny: string
                               iconSizeSmall: string
                               iconSizeMedium: string

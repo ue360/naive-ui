@@ -66,7 +66,7 @@ declare const _default: import('vue').DefineComponent<
       type: BooleanConstructor
       required: true
     }
-    draggable: BooleanConstructor
+    draggable: (BooleanConstructor | StringConstructor)[]
     preset: PropType<'dialog' | 'card' | 'confirm'>
     displayDirective: {
       type: PropType<'show' | 'if'>
@@ -804,7 +804,6 @@ declare const _default: import('vue').DefineComponent<
       show: boolean
       onBeforeLeave: Function
       onAfterLeave: Function
-      draggable: boolean
       loading: boolean
       bordered: boolean
       onClose: Function
@@ -821,6 +820,7 @@ declare const _default: import('vue').DefineComponent<
       content?: string | (() => import('vue').VNodeChild) | undefined
       icon?: (() => import('vue').VNodeChild) | undefined
       onAfterEnter?: (() => void) | undefined
+      draggable?: string | boolean | undefined
       title?: string | (() => import('vue').VNodeChild) | undefined
       action?: (() => import('vue').VNodeChild) | undefined
       positiveText?: string | undefined
@@ -837,7 +837,6 @@ declare const _default: import('vue').DefineComponent<
   {
     type: 'default' | 'error' | 'info' | 'success' | 'warning'
     size: 'small' | 'medium' | 'large' | 'huge'
-    draggable: boolean
     loading: boolean
     bordered: boolean
     closable: boolean

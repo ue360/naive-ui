@@ -6,12 +6,6 @@ declare const _default: import('vue').DefineComponent<
     }
     readonly active: BooleanConstructor
     readonly dateFormat: {
-      /**
-       * DateTime Panel
-       * Update picker value on:
-       * 1. confirm click
-       * 2. clear click
-       */
       readonly type: StringConstructor
       readonly default: 'yyyy-MM-dd'
     }

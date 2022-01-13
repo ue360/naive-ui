@@ -56,7 +56,7 @@ declare const modalProps: {
   }
   hoverable: BooleanConstructor
   show: BooleanConstructor
-  draggable: BooleanConstructor
+  draggable: (BooleanConstructor | StringConstructor)[]
   unstableShowMask: {
     type: BooleanConstructor
     default: boolean
@@ -1026,7 +1026,7 @@ declare const _default: import('vue').DefineComponent<
     }
     hoverable: BooleanConstructor
     show: BooleanConstructor
-    draggable: BooleanConstructor
+    draggable: (BooleanConstructor | StringConstructor)[]
     unstableShowMask: {
       type: BooleanConstructor
       default: boolean
@@ -1961,7 +1961,7 @@ declare const _default: import('vue').DefineComponent<
           onBeforeLeave: (() => void) | undefined
           onAfterLeave: (() => void) | undefined
           dialog: boolean
-          draggable: boolean
+          draggable: string | boolean | undefined
           title: string | (() => import('vue').VNodeChild) | undefined
           action: (() => import('vue').VNodeChild) | undefined
           to: string | HTMLElement | undefined
@@ -2988,7 +2988,6 @@ declare const _default: import('vue').DefineComponent<
       show: boolean
       transformOrigin: 'center' | 'mouse'
       dialog: boolean
-      draggable: boolean
       loading: boolean
       bordered: boolean
       closable: boolean
@@ -3006,6 +3005,7 @@ declare const _default: import('vue').DefineComponent<
       onAfterEnter?: (() => void) | undefined
       onBeforeLeave?: (() => void) | undefined
       onAfterLeave?: (() => void) | undefined
+      draggable?: string | boolean | undefined
       title?: string | (() => import('vue').VNodeChild) | undefined
       action?: (() => import('vue').VNodeChild) | undefined
       to?: string | HTMLElement | undefined
@@ -3929,7 +3929,6 @@ declare const _default: import('vue').DefineComponent<
     transformOrigin: 'center' | 'mouse'
     appear: boolean | undefined
     dialog: boolean
-    draggable: boolean
     loading: boolean
     bordered: boolean
     closable: boolean

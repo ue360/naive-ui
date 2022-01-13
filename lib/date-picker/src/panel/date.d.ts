@@ -146,7 +146,7 @@ declare const _default: import('vue').DefineComponent<
         buttonColor2Pressed: string
         boxShadow1: string
         boxShadow2: string
-        boxShadow3: string /** we don't need a confirm button for date picking */
+        boxShadow3: string
         fontFamily: string
         fontFamilyMono: string
         fontWeight: string

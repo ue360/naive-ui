@@ -29,7 +29,7 @@ import style from './styles/index.cssr'
 const modalProps = {
   ...(useTheme.props as ThemeProps<ModalTheme>),
   show: Boolean,
-  draggable: Boolean,
+  draggable: [Boolean, String],
   unstableShowMask: {
     type: Boolean,
     default: true
