@@ -27,6 +27,7 @@ const idID = {
     monthTypeFormat: 'MM-yyyy',
     dateFormat: 'dd-MM-yyyy',
     dateTimeFormat: 'dd-MM-yyyy HH:mm:ss',
+    quarterFormat: 'yyyy-qqq',
     clear: 'Bersihkan',
     now: 'Sekarang',
     confirm: 'Setuju',
@@ -37,6 +38,7 @@ const idID = {
     monthPlaceholder: 'Pilih Bulan',
     // FIXME: translation needed
     yearPlaceholder: 'Select Year',
+    quarterPlaceholder: 'Select Quarter',
     startDatePlaceholder: 'Tanggal Mulai',
     endDatePlaceholder: 'Tanggal Selesai',
     startDatetimePlaceholder: 'Tanggal dan Waktu Mulai',

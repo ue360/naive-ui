@@ -7,3 +7,4 @@ export declare type DatePickerType =
   | 'datetimerange'
   | 'month'
   | 'year'
+  | 'quarter'

@@ -1,25 +1,23 @@
 import { ExtractPropTypes, PropType } from 'vue'
-import { Shortcuts } from '../interface'
-import type { DateItem, MonthItem, YearItem } from '../utils'
+import type { Shortcuts } from '../interface'
+import type { DateItem, MonthItem, YearItem, QuarterItem } from '../utils'
 declare const useCalendarProps: {
   readonly actions: {
     readonly type: PropType<string[]>
     readonly default: () => string[]
   }
   readonly active: BooleanConstructor
-  readonly dateFormat: {
-    readonly type: StringConstructor
-    readonly default: 'yyyy-MM-dd'
-  }
+  readonly dateFormat: StringConstructor
   readonly timeFormat: {
     readonly type: StringConstructor
-    readonly default: 'HH:mm:ss'
+    readonly value: 'HH:mm:ss'
   }
   readonly value: {
     readonly type: PropType<import('../interface').Value | null>
     readonly default: null
   }
   readonly shortcuts: PropType<Shortcuts>
+  readonly defaultTime: PropType<import('../interface').DefaultTime>
   readonly onConfirm: FunctionConstructor
   readonly onClose: PropType<import('../interface').OnClose>
   readonly onTabOut: FunctionConstructor
@@ -30,9 +28,11 @@ declare const useCalendarProps: {
 }
 declare function useCalendar(
   props: ExtractPropTypes<typeof useCalendarProps>,
-  type: 'date' | 'datetime' | 'month' | 'year'
+  type: 'date' | 'datetime' | 'month' | 'year' | 'quarter'
 ): {
-  handleDateClick: (dateItem: DateItem | MonthItem | YearItem) => void
+  handleDateClick: (
+    dateItem: DateItem | MonthItem | YearItem | QuarterItem
+  ) => void
   handleDateInputBlur: () => void
   handleDateInput: (value: string) => void
   handleTimePickerChange: (value: number | null) => void
@@ -215,12 +215,14 @@ declare function useCalendar(
       calendarLeftPaddingDatetimerange: string
       calendarLeftPaddingMonth: string
       calendarLeftPaddingYear: string
+      calendarLeftPaddingQuarter: string
       calendarRightPaddingDate: string
       calendarRightPaddingDatetime: string
       calendarRightPaddingDaterange: string
       calendarRightPaddingDatetimerange: string
       calendarRightPaddingMonth: string
       calendarRightPaddingYear: string
+      calendarRightPaddingQuarter: string
     }
     peers: {
       Input: import('../../../_mixins').Theme<
@@ -1149,6 +1151,7 @@ declare function useCalendar(
     monthTypeFormat: string
     dateFormat: string
     dateTimeFormat: string
+    quarterFormat: string
     clear: string
     now: string
     confirm: string
@@ -1158,6 +1161,7 @@ declare function useCalendar(
     datetimePlaceholder: string
     monthPlaceholder: string
     yearPlaceholder: string
+    quarterPlaceholder: string
     startDatePlaceholder: string
     endDatePlaceholder: string
     startDatetimePlaceholder: string
@@ -1208,6 +1212,7 @@ declare function useCalendar(
   dateArray: import('vue').ComputedRef<DateItem[]>
   monthArray: import('vue').ComputedRef<MonthItem[]>
   yearArray: import('vue').ComputedRef<YearItem[]>
+  quarterArray: import('vue').ComputedRef<QuarterItem[]>
   calendarYear: import('vue').ComputedRef<string>
   calendarMonth: import('vue').ComputedRef<string>
   weekdays: import('vue').ComputedRef<string[]>
@@ -1221,33 +1226,4 @@ declare function useCalendar(
   handleSingleShortcutMouseenter: (shortcut: Shortcuts[string]) => void
   handleSingleShortcutClick: (shortcut: Shortcuts[string]) => void
 }
-declare namespace useCalendar {
-  var props: {
-    readonly actions: {
-      readonly type: PropType<string[]>
-      readonly default: () => string[]
-    }
-    readonly active: BooleanConstructor
-    readonly dateFormat: {
-      readonly type: StringConstructor
-      readonly default: 'yyyy-MM-dd'
-    }
-    readonly timeFormat: {
-      readonly type: StringConstructor
-      readonly default: 'HH:mm:ss'
-    }
-    readonly value: {
-      readonly type: PropType<import('../interface').Value | null>
-      readonly default: null
-    }
-    readonly shortcuts: PropType<Shortcuts>
-    readonly onConfirm: FunctionConstructor
-    readonly onClose: PropType<import('../interface').OnClose>
-    readonly onTabOut: FunctionConstructor
-    readonly onUpdateValue: {
-      readonly type: PropType<import('../interface').OnPanelUpdateValue>
-      readonly required: true
-    }
-  }
-}
-export { useCalendar }
+export { useCalendar, useCalendarProps }

@@ -2,8 +2,8 @@ import { h, defineComponent } from 'vue'
 import { VirtualList } from 'vueuc'
 import { NButton, NxButton } from '../../../button'
 import { NBaseFocusDetector, NScrollbar } from '../../../_internal'
-import { useCalendar } from './use-calendar'
 import { MONTH_ITEM_HEIGHT } from '../config'
+import { useCalendar, useCalendarProps } from './use-calendar'
 /**
  * Month Panel
  * Update picker value on:
@@ -12,7 +12,7 @@ import { MONTH_ITEM_HEIGHT } from '../config'
  */
 export default defineComponent({
   name: 'MonthPanel',
-  props: Object.assign(Object.assign({}, useCalendar.props), {
+  props: Object.assign(Object.assign({}, useCalendarProps), {
     type: {
       type: String,
       required: true
@@ -20,6 +20,16 @@ export default defineComponent({
   }),
   setup(props) {
     const useCalendarRef = useCalendar(props, props.type)
+    const getRenderContent = (item) => {
+      switch (item.type) {
+        case 'year':
+          return item.dateObject.year
+        case 'month':
+          return item.dateObject.month + 1
+        case 'quarter':
+          return `Q ${item.dateObject.quarter}`
+      }
+    }
     const renderItem = (item, i, mergedClsPrefix) => {
       const { mergedIsDateDisabled, handleDateClick } = useCalendarRef
       return h(
@@ -31,9 +41,7 @@ export default defineComponent({
             `${mergedClsPrefix}-date-panel-month-calendar__picker-col-item`,
             {
               [`${mergedClsPrefix}-date-panel-month-calendar__picker-col-item--current`]:
-                item.type === 'month'
-                  ? item.isCurrentMonth
-                  : item.isCurrentYear,
+                item.isCurrent,
               [`${mergedClsPrefix}-date-panel-month-calendar__picker-col-item--selected`]:
                 item.selected,
               [`${mergedClsPrefix}-date-panel-month-calendar__picker-col-item--disabled`]:
@@ -42,7 +50,7 @@ export default defineComponent({
           ],
           onClick: () => handleDateClick(item)
         },
-        item.type === 'month' ? item.dateObject.month + 1 : item.dateObject.year
+        getRenderContent(item)
       )
     }
     return Object.assign(Object.assign({}, useCalendarRef), { renderItem })
@@ -61,7 +69,10 @@ export default defineComponent({
       {
         ref: 'selfRef',
         tabindex: 0,
-        class: `${mergedClsPrefix}-date-panel ${mergedClsPrefix}-date-panel--month`,
+        class: [
+          `${mergedClsPrefix}-date-panel`,
+          `${mergedClsPrefix}-date-panel--month`
+        ],
         onFocus: this.handlePanelFocus,
         onKeydown: this.handlePanelKeyDown
       },
@@ -101,7 +112,7 @@ export default defineComponent({
               )
           }
         ),
-        type === 'month'
+        type === 'month' || type === 'quarter'
           ? h(
               'div',
               {
@@ -116,11 +127,12 @@ export default defineComponent({
                 },
                 {
                   default: () => [
-                    this.monthArray.map((monthItem, i) =>
-                      renderItem(monthItem, i, mergedClsPrefix)
-                    ),
+                    (type === 'month'
+                      ? this.monthArray
+                      : this.quarterArray
+                    ).map((item, i) => renderItem(item, i, mergedClsPrefix)),
                     h('div', {
-                      class: `${mergedClsPrefix}-date-panel-month-calendar__padding`
+                      class: `${mergedClsPrefix}-date-panel-${type}-calendar__padding`
                     })
                   ]
                 }

@@ -1,23 +1,20 @@
 import { computed, inject, ref, nextTick } from 'vue'
 import { useKeyboard } from 'vooks'
 import { datePickerInjectionKey } from '../interface'
-const DATE_FORMAT = 'yyyy-MM-dd'
 const TIME_FORMAT = 'HH:mm:ss'
 const usePanelCommonProps = {
   active: Boolean,
-  dateFormat: {
-    type: String,
-    default: DATE_FORMAT
-  },
+  dateFormat: String,
   timeFormat: {
     type: String,
-    default: TIME_FORMAT
+    value: TIME_FORMAT
   },
   value: {
     type: [Array, Number],
     default: null
   },
   shortcuts: Object,
+  defaultTime: [Number, String, Array],
   onConfirm: Function,
   onClose: Function,
   onTabOut: Function,
@@ -142,5 +139,4 @@ function usePanelCommon(props) {
     handleShortcutMouseleave: restorePendingValue
   }
 }
-usePanelCommon.props = usePanelCommonProps
-export { usePanelCommon }
+export { usePanelCommon, usePanelCommonProps }

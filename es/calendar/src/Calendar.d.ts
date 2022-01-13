@@ -1463,6 +1463,7 @@ declare const _default: import('vue').DefineComponent<
       monthTypeFormat: string
       dateFormat: string
       dateTimeFormat: string
+      quarterFormat: string
       clear: string
       now: string
       confirm: string
@@ -1472,6 +1473,7 @@ declare const _default: import('vue').DefineComponent<
       datetimePlaceholder: string
       monthPlaceholder: string
       yearPlaceholder: string
+      quarterPlaceholder: string
       startDatePlaceholder: string
       endDatePlaceholder: string
       startDatetimePlaceholder: string

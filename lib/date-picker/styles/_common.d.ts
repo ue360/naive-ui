@@ -18,11 +18,13 @@ declare const _default: {
   calendarLeftPaddingDatetimerange: string
   calendarLeftPaddingMonth: string
   calendarLeftPaddingYear: string
+  calendarLeftPaddingQuarter: string
   calendarRightPaddingDate: string
   calendarRightPaddingDatetime: string
   calendarRightPaddingDaterange: string
   calendarRightPaddingDatetimerange: string
   calendarRightPaddingMonth: string
   calendarRightPaddingYear: string
+  calendarRightPaddingQuarter: string
 }
 export default _default

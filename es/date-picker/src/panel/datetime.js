@@ -9,7 +9,7 @@ import {
   FastForwardIcon
 } from '../../../_internal/icons'
 import { NBaseFocusDetector } from '../../../_internal'
-import { useCalendar } from './use-calendar'
+import { useCalendar, useCalendarProps } from './use-calendar'
 /**
  * DateTime Panel
  * Update picker value on:
@@ -18,7 +18,7 @@ import { useCalendar } from './use-calendar'
  */
 export default defineComponent({
   name: 'DateTimePanel',
-  props: useCalendar.props,
+  props: useCalendarProps,
   setup(props) {
     return useCalendar(props, 'datetime')
   },

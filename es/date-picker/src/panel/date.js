@@ -7,7 +7,7 @@ import {
   FastForwardIcon
 } from '../../../_internal/icons'
 import { NBaseFocusDetector } from '../../../_internal'
-import { useCalendar } from './use-calendar'
+import { useCalendar, useCalendarProps } from './use-calendar'
 import { warnOnce } from '../../../_utils'
 /**
  * Date Panel
@@ -17,7 +17,7 @@ import { warnOnce } from '../../../_utils'
  */
 export default defineComponent({
   name: 'DatePanel',
-  props: useCalendar.props,
+  props: useCalendarProps,
   setup(props) {
     if (process.env.NODE_ENV !== 'production') {
       watchEffect(() => {

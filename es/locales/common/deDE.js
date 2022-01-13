@@ -27,6 +27,7 @@ const deDE = {
     monthTypeFormat: 'MM-yyyy',
     dateFormat: 'dd-MM-yyyy',
     dateTimeFormat: 'dd-MM-yyyy HH:mm:ss',
+    quarterFormat: 'yyyy-qqq',
     clear: 'Löschen',
     now: 'Jetzt',
     confirm: 'Bestätigen',
@@ -37,6 +38,7 @@ const deDE = {
     monthPlaceholder: 'Monat auswählen',
     // FIXME: translation needed
     yearPlaceholder: 'Select Year',
+    quarterPlaceholder: 'Select Quarter',
     startDatePlaceholder: 'Anfangsdatum',
     endDatePlaceholder: 'Enddatum',
     startDatetimePlaceholder: 'Anfangsdatum und Uhrzeit',

@@ -46,12 +46,14 @@ export declare const self: (vars: ThemeCommonVars) => {
   calendarLeftPaddingDatetimerange: string
   calendarLeftPaddingMonth: string
   calendarLeftPaddingYear: string
+  calendarLeftPaddingQuarter: string
   calendarRightPaddingDate: string
   calendarRightPaddingDatetime: string
   calendarRightPaddingDaterange: string
   calendarRightPaddingDatetimerange: string
   calendarRightPaddingMonth: string
   calendarRightPaddingYear: string
+  calendarRightPaddingQuarter: string
 }
 export declare type DatePickerThemeVars = ReturnType<typeof self>
 declare const datePickerLight: import('../../_mixins').Theme<
@@ -103,12 +105,14 @@ declare const datePickerLight: import('../../_mixins').Theme<
     calendarLeftPaddingDatetimerange: string
     calendarLeftPaddingMonth: string
     calendarLeftPaddingYear: string
+    calendarLeftPaddingQuarter: string
     calendarRightPaddingDate: string
     calendarRightPaddingDatetime: string
     calendarRightPaddingDaterange: string
     calendarRightPaddingDatetimerange: string
     calendarRightPaddingMonth: string
     calendarRightPaddingYear: string
+    calendarRightPaddingQuarter: string
   },
   {
     Input: import('../../_mixins').Theme<

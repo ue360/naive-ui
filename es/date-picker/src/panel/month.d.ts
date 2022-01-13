@@ -1,9 +1,9 @@
 import { VNode, PropType } from 'vue'
-import type { MonthItem, YearItem } from '../utils'
+import type { MonthItem, YearItem, QuarterItem } from '../utils'
 declare const _default: import('vue').DefineComponent<
   {
     type: {
-      type: PropType<'month' | 'year'>
+      type: PropType<'month' | 'year' | 'quarter'>
       required: true
     }
     actions: {
@@ -11,19 +11,17 @@ declare const _default: import('vue').DefineComponent<
       readonly default: () => string[]
     }
     active: BooleanConstructor
-    dateFormat: {
-      readonly type: StringConstructor
-      readonly default: 'yyyy-MM-dd'
-    }
+    dateFormat: StringConstructor
     timeFormat: {
       readonly type: StringConstructor
-      readonly default: 'HH:mm:ss'
+      readonly value: 'HH:mm:ss'
     }
     value: {
       readonly type: PropType<import('../interface').Value | null>
       readonly default: null
     }
     shortcuts: PropType<import('../interface').Shortcuts>
+    defaultTime: PropType<import('../interface').DefaultTime>
     onConfirm: FunctionConstructor
     onClose: PropType<import('../interface').OnClose>
     onTabOut: FunctionConstructor
@@ -34,12 +32,12 @@ declare const _default: import('vue').DefineComponent<
   },
   {
     renderItem: (
-      item: YearItem | MonthItem,
+      item: YearItem | MonthItem | QuarterItem,
       i: number,
       mergedClsPrefix: string
     ) => VNode
     handleDateClick: (
-      dateItem: import('../utils').DateItem | MonthItem | YearItem
+      dateItem: import('../utils').DateItem | MonthItem | YearItem | QuarterItem
     ) => void
     handleDateInputBlur: () => void
     handleDateInput: (value: string) => void
@@ -157,12 +155,6 @@ declare const _default: import('vue').DefineComponent<
         fontWeight: string
         fontWeightStrong: string
         cubicBezierEaseInOut: string
-        /**
-         * Month Panel
-         * Update picker value on:
-         * 1. item click
-         * 2. clear click
-         */
         cubicBezierEaseOut: string
         cubicBezierEaseIn: string
         borderRadius: string
@@ -229,12 +221,14 @@ declare const _default: import('vue').DefineComponent<
         calendarLeftPaddingDatetimerange: string
         calendarLeftPaddingMonth: string
         calendarLeftPaddingYear: string
+        calendarLeftPaddingQuarter: string
         calendarRightPaddingDate: string
         calendarRightPaddingDatetime: string
         calendarRightPaddingDaterange: string
         calendarRightPaddingDatetimerange: string
         calendarRightPaddingMonth: string
         calendarRightPaddingYear: string
+        calendarRightPaddingQuarter: string
       }
       peers: {
         Input: import('../../../_mixins').Theme<
@@ -1163,6 +1157,7 @@ declare const _default: import('vue').DefineComponent<
       monthTypeFormat: string
       dateFormat: string
       dateTimeFormat: string
+      quarterFormat: string
       clear: string
       now: string
       confirm: string
@@ -1172,6 +1167,7 @@ declare const _default: import('vue').DefineComponent<
       datetimePlaceholder: string
       monthPlaceholder: string
       yearPlaceholder: string
+      quarterPlaceholder: string
       startDatePlaceholder: string
       endDatePlaceholder: string
       startDatetimePlaceholder: string
@@ -1222,6 +1218,7 @@ declare const _default: import('vue').DefineComponent<
     dateArray: import('vue').ComputedRef<import('../utils').DateItem[]>
     monthArray: import('vue').ComputedRef<MonthItem[]>
     yearArray: import('vue').ComputedRef<YearItem[]>
+    quarterArray: import('vue').ComputedRef<QuarterItem[]>
     calendarYear: import('vue').ComputedRef<string>
     calendarMonth: import('vue').ComputedRef<string>
     weekdays: import('vue').ComputedRef<string[]>
@@ -1266,31 +1263,31 @@ declare const _default: import('vue').DefineComponent<
       timeFormat?: unknown
       value?: unknown
       shortcuts?: unknown
+      defaultTime?: unknown
       onConfirm?: unknown
       onClose?: unknown
       onTabOut?: unknown
       onUpdateValue?: unknown
     } & {
-      type: 'month' | 'year'
+      type: 'month' | 'year' | 'quarter'
       value: import('../interface').Value | null
       active: boolean
-      dateFormat: string
       onUpdateValue: import('../interface').OnPanelUpdateValue
       actions: string[]
-      timeFormat: string
     } & {
+      dateFormat?: string | undefined
       onTabOut?: Function | undefined
       onClose?: import('../interface').OnClose | undefined
       onConfirm?: Function | undefined
+      defaultTime?: import('../interface').DefaultTime | undefined
+      timeFormat?: string | undefined
       shortcuts?: import('../interface').Shortcuts | undefined
     }
   >,
   {
     value: import('../interface').Value | null
     active: boolean
-    dateFormat: string
     actions: string[]
-    timeFormat: string
   }
 >
 /**

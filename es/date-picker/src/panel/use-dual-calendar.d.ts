@@ -1,25 +1,25 @@
 import { ExtractPropTypes } from 'vue'
 import { DateItem } from '../utils'
-import { Shortcuts } from '../interface'
+import type { Shortcuts } from '../interface'
 declare const useDualCalendarProps: {
   readonly actions: {
     readonly type: ArrayConstructor
     readonly default: () => string[]
   }
   readonly active: BooleanConstructor
-  readonly dateFormat: {
-    readonly type: StringConstructor
-    readonly default: 'yyyy-MM-dd'
-  }
+  readonly dateFormat: StringConstructor
   readonly timeFormat: {
     readonly type: StringConstructor
-    readonly default: 'HH:mm:ss'
+    readonly value: 'HH:mm:ss'
   }
   readonly value: {
     readonly type: import('vue').PropType<import('../interface').Value | null>
     readonly default: null
   }
   readonly shortcuts: import('vue').PropType<Shortcuts>
+  readonly defaultTime: import('vue').PropType<
+    import('../interface').DefaultTime
+  >
   readonly onConfirm: FunctionConstructor
   readonly onClose: import('vue').PropType<import('../interface').OnClose>
   readonly onTabOut: FunctionConstructor
@@ -229,12 +229,14 @@ declare function useDualCalendar(
       calendarLeftPaddingDatetimerange: string
       calendarLeftPaddingMonth: string
       calendarLeftPaddingYear: string
+      calendarLeftPaddingQuarter: string
       calendarRightPaddingDate: string
       calendarRightPaddingDatetime: string
       calendarRightPaddingDaterange: string
       calendarRightPaddingDatetimerange: string
       calendarRightPaddingMonth: string
       calendarRightPaddingYear: string
+      calendarRightPaddingQuarter: string
     }
     peers: {
       Input: import('../../../_mixins').Theme<
@@ -1163,6 +1165,7 @@ declare function useDualCalendar(
     monthTypeFormat: string
     dateFormat: string
     dateTimeFormat: string
+    quarterFormat: string
     clear: string
     now: string
     confirm: string
@@ -1172,6 +1175,7 @@ declare function useDualCalendar(
     datetimePlaceholder: string
     monthPlaceholder: string
     yearPlaceholder: string
+    quarterPlaceholder: string
     startDatePlaceholder: string
     endDatePlaceholder: string
     startDatetimePlaceholder: string
@@ -1229,35 +1233,4 @@ declare function useDualCalendar(
   handleRangeShortcutMouseenter: (shortcut: Shortcuts[string]) => void
   handleRangeShortcutClick: (shortcut: Shortcuts[string]) => void
 }
-declare namespace useDualCalendar {
-  var props: {
-    readonly actions: {
-      readonly type: ArrayConstructor
-      readonly default: () => string[]
-    }
-    readonly active: BooleanConstructor
-    readonly dateFormat: {
-      readonly type: StringConstructor
-      readonly default: 'yyyy-MM-dd'
-    }
-    readonly timeFormat: {
-      readonly type: StringConstructor
-      readonly default: 'HH:mm:ss'
-    }
-    readonly value: {
-      readonly type: import('vue').PropType<import('../interface').Value | null>
-      readonly default: null
-    }
-    readonly shortcuts: import('vue').PropType<Shortcuts>
-    readonly onConfirm: FunctionConstructor
-    readonly onClose: import('vue').PropType<import('../interface').OnClose>
-    readonly onTabOut: FunctionConstructor
-    readonly onUpdateValue: {
-      readonly type: import('vue').PropType<
-        import('../interface').OnPanelUpdateValue
-      >
-      readonly required: true
-    }
-  }
-}
-export { useDualCalendar }
+export { useDualCalendar, useDualCalendarProps }

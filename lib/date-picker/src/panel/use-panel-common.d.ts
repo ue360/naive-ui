@@ -1,20 +1,24 @@
 import { PropType, ExtractPropTypes } from 'vue'
-import { Value, OnPanelUpdateValue, OnClose, Shortcuts } from '../interface'
+import {
+  Value,
+  OnPanelUpdateValue,
+  OnClose,
+  Shortcuts,
+  DefaultTime
+} from '../interface'
 declare const usePanelCommonProps: {
   readonly active: BooleanConstructor
-  readonly dateFormat: {
-    readonly type: StringConstructor
-    readonly default: 'yyyy-MM-dd'
-  }
+  readonly dateFormat: StringConstructor
   readonly timeFormat: {
     readonly type: StringConstructor
-    readonly default: 'HH:mm:ss'
+    readonly value: 'HH:mm:ss'
   }
   readonly value: {
     readonly type: PropType<Value | null>
     readonly default: null
   }
   readonly shortcuts: PropType<Shortcuts>
+  readonly defaultTime: PropType<DefaultTime>
   readonly onConfirm: FunctionConstructor
   readonly onClose: PropType<OnClose>
   readonly onTabOut: FunctionConstructor
@@ -176,12 +180,14 @@ declare function usePanelCommon(props: UsePanelCommonProps): {
       calendarLeftPaddingDatetimerange: string
       calendarLeftPaddingMonth: string
       calendarLeftPaddingYear: string
+      calendarLeftPaddingQuarter: string
       calendarRightPaddingDate: string
       calendarRightPaddingDatetime: string
       calendarRightPaddingDaterange: string
       calendarRightPaddingDatetimerange: string
       calendarRightPaddingMonth: string
       calendarRightPaddingYear: string
+      calendarRightPaddingQuarter: string
     }
     peers: {
       Input: import('../../../_mixins').Theme<
@@ -1111,6 +1117,7 @@ declare function usePanelCommon(props: UsePanelCommonProps): {
     monthTypeFormat: string
     dateFormat: string
     dateTimeFormat: string
+    quarterFormat: string
     clear: string
     now: string
     confirm: string
@@ -1120,6 +1127,7 @@ declare function usePanelCommon(props: UsePanelCommonProps): {
     datetimePlaceholder: string
     monthPlaceholder: string
     yearPlaceholder: string
+    quarterPlaceholder: string
     startDatePlaceholder: string
     endDatePlaceholder: string
     startDatetimePlaceholder: string
@@ -1143,29 +1151,4 @@ declare function usePanelCommon(props: UsePanelCommonProps): {
   getShortcutValue: (shortcut: Shortcuts[string]) => number | [number, number]
   handleShortcutMouseleave: () => void
 }
-declare namespace usePanelCommon {
-  var props: {
-    readonly active: BooleanConstructor
-    readonly dateFormat: {
-      readonly type: StringConstructor
-      readonly default: 'yyyy-MM-dd'
-    }
-    readonly timeFormat: {
-      readonly type: StringConstructor
-      readonly default: 'HH:mm:ss'
-    }
-    readonly value: {
-      readonly type: PropType<Value | null>
-      readonly default: null
-    }
-    readonly shortcuts: PropType<Shortcuts>
-    readonly onConfirm: FunctionConstructor
-    readonly onClose: PropType<OnClose>
-    readonly onTabOut: FunctionConstructor
-    readonly onUpdateValue: {
-      readonly type: PropType<OnPanelUpdateValue>
-      readonly required: true
-    }
-  }
-}
-export { usePanelCommon }
+export { usePanelCommon, usePanelCommonProps }

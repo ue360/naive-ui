@@ -24,7 +24,7 @@ export interface MonthItem {
     month: number
     year: number
   }
-  isCurrentMonth: boolean
+  isCurrent: boolean
   selected: boolean
   ts: number
 }
@@ -33,7 +33,17 @@ export interface YearItem {
   dateObject: {
     year: number
   }
-  isCurrentYear: boolean
+  isCurrent: boolean
+  selected: boolean
+  ts: number
+}
+export interface QuarterItem {
+  type: 'quarter'
+  dateObject: {
+    quarter: number
+    year: number
+  }
+  isCurrent: boolean
   selected: boolean
   ts: number
 }
@@ -53,6 +63,11 @@ declare function monthArray(
   valueTs: number | [number, number] | null,
   currentTs: number
 ): MonthItem[]
+declare function quarterArray(
+  quarterTs: number,
+  valueTs: number | [number, number] | null,
+  currentTs: number
+): QuarterItem[]
 declare function yearArray(
   yearTs: number,
   valueTs: number | [number, number] | null,
@@ -66,10 +81,19 @@ declare function strictParse(
     locale: Locale
   }
 ): Date
+declare function getDefaultTime(timeValue: string | undefined):
+  | {
+      hours: number
+      minutes: number
+      seconds: number
+    }
+  | undefined
 export {
   dateArray,
   monthArray,
   yearArray,
+  quarterArray,
   strictParse,
-  getDerivedTimeFromKeyboardEvent
+  getDerivedTimeFromKeyboardEvent,
+  getDefaultTime
 }

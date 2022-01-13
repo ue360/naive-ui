@@ -4,26 +4,20 @@ declare const _default: import('vue').DefineComponent<
       readonly type: import('vue').PropType<string[]>
       readonly default: () => string[]
     }
-    /**
-     * Date Panel
-     * Update picker value on:
-     * 1. item click
-     * 2. clear click
-     */
     readonly active: BooleanConstructor
-    readonly dateFormat: {
-      readonly type: StringConstructor
-      readonly default: 'yyyy-MM-dd'
-    }
+    readonly dateFormat: StringConstructor
     readonly timeFormat: {
       readonly type: StringConstructor
-      readonly default: 'HH:mm:ss'
+      readonly value: 'HH:mm:ss'
     }
     readonly value: {
       readonly type: import('vue').PropType<import('../interface').Value | null>
       readonly default: null
     }
     readonly shortcuts: import('vue').PropType<import('../interface').Shortcuts>
+    readonly defaultTime: import('vue').PropType<
+      import('../interface').DefaultTime
+    >
     readonly onConfirm: FunctionConstructor
     readonly onClose: import('vue').PropType<import('../interface').OnClose>
     readonly onTabOut: FunctionConstructor
@@ -40,6 +34,7 @@ declare const _default: import('vue').DefineComponent<
         | import('../utils').DateItem
         | import('../utils').MonthItem
         | import('../utils').YearItem
+        | import('../utils').QuarterItem
     ) => void
     handleDateInputBlur: () => void
     handleDateInput: (value: string) => void
@@ -151,7 +146,7 @@ declare const _default: import('vue').DefineComponent<
         buttonColor2Pressed: string
         boxShadow1: string
         boxShadow2: string
-        boxShadow3: string
+        boxShadow3: string /** we don't need a confirm button for date picking */
         fontFamily: string
         fontFamilyMono: string
         fontWeight: string
@@ -223,12 +218,14 @@ declare const _default: import('vue').DefineComponent<
         calendarLeftPaddingDatetimerange: string
         calendarLeftPaddingMonth: string
         calendarLeftPaddingYear: string
+        calendarLeftPaddingQuarter: string
         calendarRightPaddingDate: string
         calendarRightPaddingDatetime: string
         calendarRightPaddingDaterange: string
         calendarRightPaddingDatetimerange: string
         calendarRightPaddingMonth: string
         calendarRightPaddingYear: string
+        calendarRightPaddingQuarter: string
       }
       peers: {
         Input: import('../../../_mixins').Theme<
@@ -496,12 +493,6 @@ declare const _default: import('vue').DefineComponent<
             iconMarginMedium: string
             iconMarginLarge: string
             iconSizeTiny: string
-            /**
-             * Date Panel
-             * Update picker value on:
-             * 1. item click
-             * 2. clear click
-             */
             iconSizeSmall: string
             iconSizeMedium: string
             iconSizeLarge: string
@@ -738,12 +729,6 @@ declare const _default: import('vue').DefineComponent<
                 iconMarginMedium: string
                 iconMarginLarge: string
                 iconSizeTiny: string
-                /**
-                 * Date Panel
-                 * Update picker value on:
-                 * 1. item click
-                 * 2. clear click
-                 */
                 iconSizeSmall: string
                 iconSizeMedium: string
                 iconSizeLarge: string
@@ -1064,12 +1049,6 @@ declare const _default: import('vue').DefineComponent<
                               iconMarginMedium: string
                               iconMarginLarge: string
                               iconSizeTiny: string
-                              /**
-                               * Date Panel
-                               * Update picker value on:
-                               * 1. item click
-                               * 2. clear click
-                               */
                               iconSizeSmall: string
                               iconSizeMedium: string
                               iconSizeLarge: string
@@ -1175,6 +1154,7 @@ declare const _default: import('vue').DefineComponent<
       monthTypeFormat: string
       dateFormat: string
       dateTimeFormat: string
+      quarterFormat: string
       clear: string
       now: string
       confirm: string
@@ -1184,6 +1164,7 @@ declare const _default: import('vue').DefineComponent<
       datetimePlaceholder: string
       monthPlaceholder: string
       yearPlaceholder: string
+      quarterPlaceholder: string
       startDatePlaceholder: string
       endDatePlaceholder: string
       startDatetimePlaceholder: string
@@ -1234,6 +1215,7 @@ declare const _default: import('vue').DefineComponent<
     dateArray: import('vue').ComputedRef<import('../utils').DateItem[]>
     monthArray: import('vue').ComputedRef<import('../utils').MonthItem[]>
     yearArray: import('vue').ComputedRef<import('../utils').YearItem[]>
+    quarterArray: import('vue').ComputedRef<import('../utils').QuarterItem[]>
     calendarYear: import('vue').ComputedRef<string>
     calendarMonth: import('vue').ComputedRef<string>
     weekdays: import('vue').ComputedRef<string[]>
@@ -1277,6 +1259,7 @@ declare const _default: import('vue').DefineComponent<
       readonly timeFormat?: unknown
       readonly value?: unknown
       readonly shortcuts?: unknown
+      readonly defaultTime?: unknown
       readonly onConfirm?: unknown
       readonly onClose?: unknown
       readonly onTabOut?: unknown
@@ -1284,23 +1267,22 @@ declare const _default: import('vue').DefineComponent<
     } & {
       value: import('../interface').Value | null
       active: boolean
-      dateFormat: string
       onUpdateValue: import('../interface').OnPanelUpdateValue
       actions: string[]
-      timeFormat: string
     } & {
+      dateFormat?: string | undefined
       onTabOut?: Function | undefined
       onClose?: import('../interface').OnClose | undefined
       onConfirm?: Function | undefined
+      defaultTime?: import('../interface').DefaultTime | undefined
+      timeFormat?: string | undefined
       shortcuts?: import('../interface').Shortcuts | undefined
     }
   >,
   {
     value: import('../interface').Value | null
     active: boolean
-    dateFormat: string
     actions: string[]
-    timeFormat: string
   }
 >
 /**

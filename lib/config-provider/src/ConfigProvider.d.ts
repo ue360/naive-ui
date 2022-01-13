@@ -49,6 +49,7 @@ export declare const configProviderProps: {
       monthTypeFormat: string
       dateFormat: string
       dateTimeFormat: string
+      quarterFormat: string
       clear: string
       now: string
       confirm: string
@@ -58,6 +59,7 @@ export declare const configProviderProps: {
       datetimePlaceholder: string
       monthPlaceholder: string
       yearPlaceholder: string
+      quarterPlaceholder: string
       startDatePlaceholder: string
       endDatePlaceholder: string
       startDatetimePlaceholder: string
@@ -176,6 +178,7 @@ declare const _default: import('vue').DefineComponent<
         monthTypeFormat: string
         dateFormat: string
         dateTimeFormat: string
+        quarterFormat: string
         clear: string
         now: string
         confirm: string
@@ -185,6 +188,7 @@ declare const _default: import('vue').DefineComponent<
         datetimePlaceholder: string
         monthPlaceholder: string
         yearPlaceholder: string
+        quarterPlaceholder: string
         startDatePlaceholder: string
         endDatePlaceholder: string
         startDatetimePlaceholder: string
@@ -338,6 +342,7 @@ declare const _default: import('vue').DefineComponent<
               monthTypeFormat: string
               dateFormat: string
               dateTimeFormat: string
+              quarterFormat: string
               clear: string
               now: string
               confirm: string
@@ -347,6 +352,7 @@ declare const _default: import('vue').DefineComponent<
               datetimePlaceholder: string
               monthPlaceholder: string
               yearPlaceholder: string
+              quarterPlaceholder: string
               startDatePlaceholder: string
               endDatePlaceholder: string
               startDatetimePlaceholder: string

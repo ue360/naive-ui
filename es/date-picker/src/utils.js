@@ -11,10 +11,13 @@ import {
   addDays,
   addMonths,
   addYears,
+  addQuarters,
   getDay,
   parse,
   format,
-  startOfYear
+  startOfYear,
+  getQuarter,
+  isSameQuarter
 } from 'date-fns'
 import { START_YEAR } from './config'
 function getDerivedTimeFromKeyboardEvent(prevValue, event) {
@@ -35,7 +38,8 @@ function getDerivedTimeFromKeyboardEvent(prevValue, event) {
 const matcherMap = {
   date: isSameDay,
   month: isSameMonth,
-  year: isSameYear
+  year: isSameYear,
+  quarter: isSameQuarter
 }
 function matchDate(sourceTime, patternTime, type = 'date') {
   const matcher = matcherMap[type]
@@ -79,7 +83,7 @@ function monthItem(monthTs, valueTs, currentTs) {
       month: getMonth(monthTs),
       year: getYear(monthTs)
     },
-    isCurrentMonth: isSameMonth(currentTs, monthTs),
+    isCurrent: isSameMonth(currentTs, monthTs),
     selected: valueTs !== null && matchDate(valueTs, monthTs, 'month'),
     ts: getTime(monthTs)
   }
@@ -90,9 +94,21 @@ function yearItem(yearTs, valueTs, currentTs) {
     dateObject: {
       year: getYear(yearTs)
     },
-    isCurrentYear: isSameYear(currentTs, yearTs),
+    isCurrent: isSameYear(currentTs, yearTs),
     selected: valueTs !== null && matchDate(valueTs, yearTs, 'year'),
     ts: getTime(yearTs)
+  }
+}
+function quarterItem(quarterTs, valueTs, currentTs) {
+  return {
+    type: 'quarter',
+    dateObject: {
+      quarter: getQuarter(quarterTs),
+      year: getYear(quarterTs)
+    },
+    isCurrent: isSameQuarter(currentTs, quarterTs),
+    selected: valueTs !== null && matchDate(valueTs, quarterTs, 'quarter'),
+    ts: getTime(quarterTs)
   }
 }
 /**
@@ -148,6 +164,16 @@ function monthArray(monthTs, valueTs, currentTs) {
   }
   return calendarMonths
 }
+function quarterArray(quarterTs, valueTs, currentTs) {
+  const calendarQuarters = []
+  const yearStart = startOfYear(quarterTs)
+  for (let i = 0; i < 4; i++) {
+    calendarQuarters.push(
+      quarterItem(getTime(addQuarters(yearStart, i)), valueTs, currentTs)
+    )
+  }
+  return calendarQuarters
+}
 function yearArray(yearTs, valueTs, currentTs) {
   const calendarYears = []
   const time1900 = new Date(START_YEAR, 0, 1)
@@ -167,10 +193,26 @@ function strictParse(string, pattern, backup, option) {
   else if (format(result, pattern, option) === string) return result
   else return new Date(NaN)
 }
+function getDefaultTime(timeValue) {
+  if (timeValue === undefined) {
+    return undefined
+  }
+  if (typeof timeValue === 'number') {
+    return timeValue
+  }
+  const [hour, minute, second] = timeValue.split(':')
+  return {
+    hours: Number(hour),
+    minutes: Number(minute),
+    seconds: Number(second)
+  }
+}
 export {
   dateArray,
   monthArray,
   yearArray,
+  quarterArray,
   strictParse,
-  getDerivedTimeFromKeyboardEvent
+  getDerivedTimeFromKeyboardEvent,
+  getDefaultTime
 }

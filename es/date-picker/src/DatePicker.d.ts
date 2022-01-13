@@ -8,7 +8,10 @@ import type {
   IsDateDisabled,
   IsTimeDisabled,
   Shortcuts,
-  FirstDayOfWeek
+  FirstDayOfWeek,
+  DefaultTime,
+  FormattedValue,
+  OnUpdateFormattedValue
 } from './interface'
 declare const datePickerProps: {
   readonly to: {
@@ -21,10 +24,9 @@ declare const datePickerProps: {
   }
   readonly clearable: BooleanConstructor
   readonly updateValueOnClose: BooleanConstructor
-  readonly defaultValue: {
-    readonly type: PropType<Value | null>
-    readonly default: null
-  }
+  readonly defaultValue: PropType<Value | null>
+  readonly defaultFormattedValue: PropType<FormattedValue | null>
+  readonly defaultTime: PropType<DefaultTime>
   readonly disabled: {
     readonly type: PropType<boolean | undefined>
     readonly default: undefined
@@ -34,11 +36,13 @@ declare const datePickerProps: {
     readonly default: 'bottom-start'
   }
   readonly value: PropType<Value | null>
+  readonly formattedValue: PropType<FormattedValue | null>
   readonly size: PropType<'small' | 'medium' | 'large'>
   readonly type: {
     readonly type: PropType<DatePickerType>
     readonly default: 'date'
   }
+  readonly valueFormat: StringConstructor
   readonly separator: StringConstructor
   readonly placeholder: StringConstructor
   readonly startPlaceholder: StringConstructor
@@ -60,15 +64,15 @@ declare const datePickerProps: {
   readonly closeOnSelect: BooleanConstructor
   readonly 'onUpdate:show': PropType<MaybeArray<(show: boolean) => void>>
   readonly onUpdateShow: PropType<MaybeArray<(show: boolean) => void>>
+  readonly 'onUpdate:formattedValue': PropType<
+    MaybeArray<OnUpdateFormattedValue>
+  >
+  readonly onUpdateFormattedValue: PropType<MaybeArray<OnUpdateFormattedValue>>
   readonly 'onUpdate:value': PropType<MaybeArray<OnUpdateValue>>
   readonly onUpdateValue: PropType<MaybeArray<OnUpdateValue>>
   readonly onFocus: PropType<(e: FocusEvent) => void>
   readonly onBlur: PropType<(e: FocusEvent) => void>
-  readonly onChange: {
-    readonly type: PropType<MaybeArray<OnUpdateValue>>
-    readonly validator: () => boolean
-    readonly default: undefined
-  }
+  readonly onChange: PropType<MaybeArray<OnUpdateValue>>
   readonly theme: PropType<
     import('../../_mixins').Theme<
       'DatePicker',
@@ -119,12 +123,14 @@ declare const datePickerProps: {
         calendarLeftPaddingDatetimerange: string
         calendarLeftPaddingMonth: string
         calendarLeftPaddingYear: string
+        calendarLeftPaddingQuarter: string
         calendarRightPaddingDate: string
         calendarRightPaddingDatetime: string
         calendarRightPaddingDaterange: string
         calendarRightPaddingDatetimerange: string
         calendarRightPaddingMonth: string
         calendarRightPaddingYear: string
+        calendarRightPaddingQuarter: string
       },
       {
         Input: import('../../_mixins').Theme<
@@ -763,12 +769,14 @@ declare const datePickerProps: {
           calendarLeftPaddingDatetimerange: string
           calendarLeftPaddingMonth: string
           calendarLeftPaddingYear: string
+          calendarLeftPaddingQuarter: string
           calendarRightPaddingDate: string
           calendarRightPaddingDatetime: string
           calendarRightPaddingDaterange: string
           calendarRightPaddingDatetimerange: string
           calendarRightPaddingMonth: string
           calendarRightPaddingYear: string
+          calendarRightPaddingQuarter: string
         },
         {
           Input: import('../../_mixins').Theme<
@@ -1408,12 +1416,14 @@ declare const datePickerProps: {
           calendarLeftPaddingDatetimerange: string
           calendarLeftPaddingMonth: string
           calendarLeftPaddingYear: string
+          calendarLeftPaddingQuarter: string
           calendarRightPaddingDate: string
           calendarRightPaddingDatetime: string
           calendarRightPaddingDaterange: string
           calendarRightPaddingDatetimerange: string
           calendarRightPaddingMonth: string
           calendarRightPaddingYear: string
+          calendarRightPaddingQuarter: string
         },
         {
           Input: import('../../_mixins').Theme<
@@ -2021,10 +2031,9 @@ declare const _default: import('vue').DefineComponent<
     }
     readonly clearable: BooleanConstructor
     readonly updateValueOnClose: BooleanConstructor
-    readonly defaultValue: {
-      readonly type: PropType<Value | null>
-      readonly default: null
-    }
+    readonly defaultValue: PropType<Value | null>
+    readonly defaultFormattedValue: PropType<FormattedValue | null>
+    readonly defaultTime: PropType<DefaultTime>
     readonly disabled: {
       readonly type: PropType<boolean | undefined>
       readonly default: undefined
@@ -2034,11 +2043,13 @@ declare const _default: import('vue').DefineComponent<
       readonly default: 'bottom-start'
     }
     readonly value: PropType<Value | null>
+    readonly formattedValue: PropType<FormattedValue | null>
     readonly size: PropType<'small' | 'medium' | 'large'>
     readonly type: {
       readonly type: PropType<DatePickerType>
       readonly default: 'date'
     }
+    readonly valueFormat: StringConstructor
     readonly separator: StringConstructor
     readonly placeholder: StringConstructor
     readonly startPlaceholder: StringConstructor
@@ -2060,15 +2071,17 @@ declare const _default: import('vue').DefineComponent<
     readonly closeOnSelect: BooleanConstructor
     readonly 'onUpdate:show': PropType<MaybeArray<(show: boolean) => void>>
     readonly onUpdateShow: PropType<MaybeArray<(show: boolean) => void>>
+    readonly 'onUpdate:formattedValue': PropType<
+      MaybeArray<OnUpdateFormattedValue>
+    >
+    readonly onUpdateFormattedValue: PropType<
+      MaybeArray<OnUpdateFormattedValue>
+    >
     readonly 'onUpdate:value': PropType<MaybeArray<OnUpdateValue>>
     readonly onUpdateValue: PropType<MaybeArray<OnUpdateValue>>
     readonly onFocus: PropType<(e: FocusEvent) => void>
     readonly onBlur: PropType<(e: FocusEvent) => void>
-    readonly onChange: {
-      readonly type: PropType<MaybeArray<OnUpdateValue>>
-      readonly validator: () => boolean
-      readonly default: undefined
-    }
+    readonly onChange: PropType<MaybeArray<OnUpdateValue>>
     readonly theme: PropType<
       import('../../_mixins').Theme<
         'DatePicker',
@@ -2119,12 +2132,14 @@ declare const _default: import('vue').DefineComponent<
           calendarLeftPaddingDatetimerange: string
           calendarLeftPaddingMonth: string
           calendarLeftPaddingYear: string
+          calendarLeftPaddingQuarter: string
           calendarRightPaddingDate: string
           calendarRightPaddingDatetime: string
           calendarRightPaddingDaterange: string
           calendarRightPaddingDatetimerange: string
           calendarRightPaddingMonth: string
           calendarRightPaddingYear: string
+          calendarRightPaddingQuarter: string
         },
         {
           Input: import('../../_mixins').Theme<
@@ -2763,12 +2778,14 @@ declare const _default: import('vue').DefineComponent<
             calendarLeftPaddingDatetimerange: string
             calendarLeftPaddingMonth: string
             calendarLeftPaddingYear: string
+            calendarLeftPaddingQuarter: string
             calendarRightPaddingDate: string
             calendarRightPaddingDatetime: string
             calendarRightPaddingDaterange: string
             calendarRightPaddingDatetimerange: string
             calendarRightPaddingMonth: string
             calendarRightPaddingYear: string
+            calendarRightPaddingQuarter: string
           },
           {
             Input: import('../../_mixins').Theme<
@@ -3408,12 +3425,14 @@ declare const _default: import('vue').DefineComponent<
             calendarLeftPaddingDatetimerange: string
             calendarLeftPaddingMonth: string
             calendarLeftPaddingYear: string
+            calendarLeftPaddingQuarter: string
             calendarRightPaddingDate: string
             calendarRightPaddingDatetime: string
             calendarRightPaddingDaterange: string
             calendarRightPaddingDatetimerange: string
             calendarRightPaddingMonth: string
             calendarRightPaddingYear: string
+            calendarRightPaddingQuarter: string
           },
           {
             Input: import('../../_mixins').Theme<
@@ -4222,12 +4241,14 @@ declare const _default: import('vue').DefineComponent<
         calendarLeftPaddingDatetimerange: string
         calendarLeftPaddingMonth: string
         calendarLeftPaddingYear: string
+        calendarLeftPaddingQuarter: string
         calendarRightPaddingDate: string
         calendarRightPaddingDatetime: string
         calendarRightPaddingDaterange: string
         calendarRightPaddingDatetimerange: string
         calendarRightPaddingMonth: string
         calendarRightPaddingYear: string
+        calendarRightPaddingQuarter: string
       }
       peers: {
         Input: import('../../_mixins').Theme<
@@ -5145,53 +5166,53 @@ declare const _default: import('vue').DefineComponent<
     }>
     actions: import('vue').ComputedRef<string[] | undefined>
     triggerCssVars: import('vue').ComputedRef<{
-      '--bezier': string
-      '--icon-color': string
-      '--icon-color-disabled': string
+      '--n-bezier': string
+      '--n-icon-color': string
+      '--n-icon-color-disabled': string
     }>
     cssVars: import('vue').ComputedRef<{
-      '--bezier': string
-      '--panel-border-radius': string
-      '--panel-color': string
-      '--panel-box-shadow': string
-      '--panel-text-color': string
-      '--panel-header-padding': string
-      '--panel-header-divider-color': string
-      '--calendar-left-padding': string
-      '--calendar-right-padding': string
-      '--calendar-title-height': string
-      '--calendar-title-padding': string
-      '--calendar-title-font-size': string
-      '--calendar-title-font-weight': string
-      '--calendar-title-text-color': string
-      '--calendar-title-grid-template-columns': string
-      '--calendar-days-height': string
-      '--calendar-days-divider-color': string
-      '--calendar-days-font-size': string
-      '--calendar-days-text-color': string
-      '--calendar-divider-color': string
-      '--panel-action-padding': string
-      '--panel-extra-footer-padding': string
-      '--panel-action-divider-color': string
-      '--item-font-size': string
-      '--item-border-radius': string
-      '--item-size': string
-      '--item-cell-width': string
-      '--item-cell-height': string
-      '--item-text-color': string
-      '--item-color-included': string
-      '--item-color-disabled': string
-      '--item-color-hover': string
-      '--item-color-active': string
-      '--item-text-color-disabled': string
-      '--item-text-color-active': string
-      '--scroll-item-width': string
-      '--scroll-item-height': string
-      '--scroll-item-border-radius': string
-      '--arrow-size': string
-      '--arrow-color': string
-      '--icon-color': string
-      '--icon-color-disabled': string
+      '--n-bezier': string
+      '--n-panel-border-radius': string
+      '--n-panel-color': string
+      '--n-panel-box-shadow': string
+      '--n-panel-text-color': string
+      '--n-panel-header-padding': string
+      '--n-panel-header-divider-color': string
+      '--n-calendar-left-padding': string
+      '--n-calendar-right-padding': string
+      '--n-calendar-title-height': string
+      '--n-calendar-title-padding': string
+      '--n-calendar-title-font-size': string
+      '--n-calendar-title-font-weight': string
+      '--n-calendar-title-text-color': string
+      '--n-calendar-title-grid-template-columns': string
+      '--n-calendar-days-height': string
+      '--n-calendar-days-divider-color': string
+      '--n-calendar-days-font-size': string
+      '--n-calendar-days-text-color': string
+      '--n-calendar-divider-color': string
+      '--n-panel-action-padding': string
+      '--n-panel-extra-footer-padding': string
+      '--n-panel-action-divider-color': string
+      '--n-item-font-size': string
+      '--n-item-border-radius': string
+      '--n-item-size': string
+      '--n-item-cell-width': string
+      '--n-item-cell-height': string
+      '--n-item-text-color': string
+      '--n-item-color-included': string
+      '--n-item-color-disabled': string
+      '--n-item-color-hover': string
+      '--n-item-color-active': string
+      '--n-item-text-color-disabled': string
+      '--n-item-text-color-active': string
+      '--n-scroll-item-width': string
+      '--n-scroll-item-height': string
+      '--n-scroll-item-border-radius': string
+      '--n-arrow-size': string
+      '--n-arrow-color': string
+      '--n-icon-color': string
+      '--n-icon-color-disabled': string
     }>
   },
   unknown,
@@ -5211,11 +5232,15 @@ declare const _default: import('vue').DefineComponent<
       readonly clearable?: unknown
       readonly updateValueOnClose?: unknown
       readonly defaultValue?: unknown
+      readonly defaultFormattedValue?: unknown
+      readonly defaultTime?: unknown
       readonly disabled?: unknown
       readonly placement?: unknown
       readonly value?: unknown
+      readonly formattedValue?: unknown
       readonly size?: unknown
       readonly type?: unknown
+      readonly valueFormat?: unknown
       readonly separator?: unknown
       readonly placeholder?: unknown
       readonly startPlaceholder?: unknown
@@ -5234,6 +5259,8 @@ declare const _default: import('vue').DefineComponent<
       readonly closeOnSelect?: unknown
       readonly 'onUpdate:show'?: unknown
       readonly onUpdateShow?: unknown
+      readonly 'onUpdate:formattedValue'?: unknown
+      readonly onUpdateFormattedValue?: unknown
       readonly 'onUpdate:value'?: unknown
       readonly onUpdateValue?: unknown
       readonly onFocus?: unknown
@@ -5246,7 +5273,6 @@ declare const _default: import('vue').DefineComponent<
       type: DatePickerType
       placement: FollowerPlacement
       clearable: boolean
-      defaultValue: Value | null
       updateValueOnClose: boolean
       inputReadonly: boolean
       closeOnSelect: boolean
@@ -5312,12 +5338,14 @@ declare const _default: import('vue').DefineComponent<
               calendarLeftPaddingDatetimerange: string
               calendarLeftPaddingMonth: string
               calendarLeftPaddingYear: string
+              calendarLeftPaddingQuarter: string
               calendarRightPaddingDate: string
               calendarRightPaddingDatetime: string
               calendarRightPaddingDaterange: string
               calendarRightPaddingDatetimerange: string
               calendarRightPaddingMonth: string
               calendarRightPaddingYear: string
+              calendarRightPaddingQuarter: string
             },
             {
               Input: import('../../_mixins').Theme<
@@ -5956,12 +5984,14 @@ declare const _default: import('vue').DefineComponent<
                 calendarLeftPaddingDatetimerange: string
                 calendarLeftPaddingMonth: string
                 calendarLeftPaddingYear: string
+                calendarLeftPaddingQuarter: string
                 calendarRightPaddingDate: string
                 calendarRightPaddingDatetime: string
                 calendarRightPaddingDaterange: string
                 calendarRightPaddingDatetimerange: string
                 calendarRightPaddingMonth: string
                 calendarRightPaddingYear: string
+                calendarRightPaddingQuarter: string
               },
               {
                 Input: import('../../_mixins').Theme<
@@ -6601,12 +6631,14 @@ declare const _default: import('vue').DefineComponent<
                 calendarLeftPaddingDatetimerange: string
                 calendarLeftPaddingMonth: string
                 calendarLeftPaddingYear: string
+                calendarLeftPaddingQuarter: string
                 calendarRightPaddingDate: string
                 calendarRightPaddingDatetime: string
                 calendarRightPaddingDaterange: string
                 calendarRightPaddingDatetimerange: string
                 calendarRightPaddingMonth: string
                 calendarRightPaddingYear: string
+                calendarRightPaddingQuarter: string
               },
               {
                 Input: import('../../_mixins').Theme<
@@ -7200,28 +7232,33 @@ declare const _default: import('vue').DefineComponent<
       bordered?: boolean | undefined
       'onUpdate:show'?: MaybeArray<(show: boolean) => void> | undefined
       onUpdateShow?: MaybeArray<(show: boolean) => void> | undefined
+      defaultValue?: Value | null | undefined
       'onUpdate:value'?: MaybeArray<OnUpdateValue> | undefined
       onUpdateValue?: MaybeArray<OnUpdateValue> | undefined
       isDateDisabled?: IsDateDisabled | undefined
       actions?: ('clear' | 'confirm' | 'now')[] | undefined
+      defaultFormattedValue?: FormattedValue | null | undefined
+      defaultTime?: DefaultTime | undefined
+      formattedValue?: FormattedValue | null | undefined
+      valueFormat?: string | undefined
       startPlaceholder?: string | undefined
       endPlaceholder?: string | undefined
       timeFormat?: string | undefined
       shortcuts?: Shortcuts | undefined
       isTimeDisabled?: IsTimeDisabled | undefined
       ranges?: Record<string, [number, number]> | undefined
+      'onUpdate:formattedValue'?: MaybeArray<OnUpdateFormattedValue> | undefined
+      onUpdateFormattedValue?: MaybeArray<OnUpdateFormattedValue> | undefined
     }
   >,
   {
     type: DatePickerType
     show: boolean | undefined
     disabled: boolean | undefined
-    onChange: MaybeArray<OnUpdateValue>
     to: string | boolean | HTMLElement
     placement: FollowerPlacement
     bordered: boolean | undefined
     clearable: boolean
-    defaultValue: Value | null
     updateValueOnClose: boolean
     inputReadonly: boolean
     closeOnSelect: boolean
