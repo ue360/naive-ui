@@ -10,7 +10,9 @@ import {
   renderSlot,
   provide,
   nextTick,
-  watchEffect
+  // watchEffect,
+  WatchStopHandle,
+  onBeforeUnmount
 } from 'vue'
 import { TreeNode, createIndexGetter } from 'treemate'
 import { VirtualList, VirtualListInst } from 'vueuc'
@@ -95,6 +97,10 @@ export default defineComponent({
     onTabOut: Function as PropType<() => void>,
     onMouseenter: Function as PropType<(e: MouseEvent) => void>,
     onMouseleave: Function as PropType<(e: MouseEvent) => void>,
+    resetMenuOnOptionsChange: {
+      type: Boolean,
+      default: true
+    },
     // deprecated
     onToggle: Function as PropType<(tmNode: TreeNode<SelectBaseOption>) => void>
   },
@@ -133,14 +139,55 @@ export default defineComponent({
           : null
       )
     }
-    initPendingNode()
-    onMounted(() => {
-      watchEffect(() => {
-        if (props.show) {
-          initPendingNode()
-          void nextTick(scrollToPendingNode)
+    // initPendingNode()
+    // onMounted(() => {
+    //   watchEffect(() => {
+    //     if (props.show) {
+    //       initPendingNode()
+    //       void nextTick(scrollToPendingNode)
+    //     }
+    //   })
+    // })
+    function clearPendingNodeIfInvalid (): void {
+      const { value: pendingNode } = pendingNodeRef
+      if (pendingNode && !props.treeMate.getNode(pendingNode.key)) {
+        pendingNodeRef.value = null
+      }
+    }
+
+    let initPendingNodeWatchStopHandle: WatchStopHandle | undefined
+    watch(
+      () => props.show,
+      (show) => {
+        if (show) {
+          initPendingNodeWatchStopHandle = watch(
+            () => props.treeMate,
+            () => {
+              if (props.resetMenuOnOptionsChange) {
+                if (props.autoPending) {
+                  initPendingNode()
+                } else {
+                  clearPendingNodeIfInvalid()
+                }
+                void nextTick(scrollToPendingNode)
+              } else {
+                clearPendingNodeIfInvalid()
+              }
+            },
+            {
+              immediate: true
+            }
+          )
+        } else {
+          initPendingNodeWatchStopHandle?.()
         }
-      })
+      },
+      {
+        immediate: true
+      }
+    )
+    onBeforeUnmount(() => {
+      initPendingNodeWatchStopHandle?.()
     })
     const itemSizeRef = computed(() => {
       return depx(themeRef.value.self[createKey('optionHeight', props.size)])

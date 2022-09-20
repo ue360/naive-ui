@@ -192,6 +192,10 @@ const selectProps = {
   displayDirective: {
     type: String as PropType<'if' | 'show'>,
     default: 'show'
+  },
+  resetMenuOnOptionsChange: {
+    type: Boolean,
+    default: true
   }
 } as const
 
@@ -798,6 +802,9 @@ export default defineComponent({
                               onTabOut={this.handleMenuTabOut}
                               onMousedown={this.handleMenuMousedown}
                               show={this.mergedShow}
+                              resetMenuOnOptionsChange={
+                                this.resetMenuOnOptionsChange
+                              }
                             >
                               {$slots}
                             </NInternalSelectMenu>,
